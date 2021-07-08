@@ -13,9 +13,12 @@ namespace Infrastructure.Data.Repositories
     {
         private readonly DbSet<T> _dbSet;
 
+        private readonly EFContext _dbContext;
+
         public RepositoryBase(EFContext dbContext)
         {
-            _dbSet = dbContext.Set<T>(); 
+            _dbSet = dbContext.Set<T>();
+            _dbContext = dbContext;
         }
 
         public async Task<T> AddAsync(T entity)
@@ -30,9 +33,21 @@ namespace Infrastructure.Data.Repositories
             return Task.FromResult(true);
         }
 
+        public Task<T> GetDetailsAsync(Expression<Func<T, bool>> expression)
+        {
+            return _dbSet.FirstOrDefaultAsync(expression);
+
+            //return _dbContext.Include(x => x.Customers).Include(x => x.Items).ThenInclude(x => x.Product).FirstOrDefaultAsync(x => x.Id == id);
+
+            //return _dbSet.Include(includes).Include(include2).ThenInclude(theninclude).FirstOrDefaultAsync(expression);
+        }
+
         public Task<T> GetAsync(Expression<Func<T, bool>> expression)
         {
             return _dbSet.FirstOrDefaultAsync(expression);
+         
+
+                //return _dbContext.Order.Where(x => x.Id == id).Include(x => x.Customer).FirstOrDefaultAsync();
         }
 
         public Task<List<T>> ListAsync(Expression<Func<T, bool>> expression)

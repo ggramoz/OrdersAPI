@@ -31,7 +31,7 @@ namespace OrdersAPI.Service.Services
 
             var customer = await customersService.GetCustomerById(order.CustomerId);
 
-            await repository.AddAsync(_order);
+            //await repository.AddAsync(_order);
 
             _order.Customer = customer;
 
@@ -46,6 +46,12 @@ namespace OrdersAPI.Service.Services
                 });
             }
 
+            foreach (var item in _order.Items)
+            {
+                _order.TotalPrice += (item.Product.Price * item.Quantity);
+            }
+
+            await repository.AddAsync(_order);
             await UnitOfWork.SaveChangesAsync();
 
             return _order;
@@ -75,7 +81,7 @@ namespace OrdersAPI.Service.Services
         {
             var repository = UnitOfWork.AsyncRepository<Order>();
 
-            var order = await repository.ListAsync(_ => _.Customer.Id == customerId);
+            var order = await repository.ListAsync(_ => _.Customer.Id == customerId); 
 
             return order;
         }
@@ -87,12 +93,12 @@ namespace OrdersAPI.Service.Services
             if (order == 1)
             {
                 var orderList = await repository.ListAsync(_ => _.Customer.Id == customerId);
-                return orderList;
+                return orderList.OrderBy(x=>x.OrderDate).ToList();
             }
             else
             {
                 var orderList = await repository.ListAsync(_ => _.Customer.Id == customerId);
-                return orderList;
+                return orderList.OrderByDescending(x => x.OrderDate).ToList();
             } 
         }
 
@@ -100,9 +106,14 @@ namespace OrdersAPI.Service.Services
         {
             var repository = UnitOfWork.AsyncRepository<Order>();
 
+            //var order = await repository.GetAsync(_ => _.Id == id);
+
             var order = await repository.GetAsync(_ => _.Id == id);
 
             return order;
         }
+
+
+
     }
 }

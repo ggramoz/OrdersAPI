@@ -59,9 +59,9 @@ namespace OrdersAPI.Service.Services
         {
             var repository = UnitOfWork.AsyncRepository<Customer>();
 
-            var res = await repository.GetAsync(_ => _.Id == id);
+            var customer = await repository.GetAsync(_ => _.Id == id);
 
-            return res;
+            return customer;
         }
     }
 }

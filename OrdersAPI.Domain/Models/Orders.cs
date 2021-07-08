@@ -9,8 +9,8 @@ namespace OrdersAPI.Domain.Models
 {
     public class Order : BaseEntity<int>
     {
-        public Customer Customer { get; set; }
-        public List<Items> Items { get; set; } = new List<Items>();
+        public virtual Customer Customer { get; set; }
+        public virtual List<Items> Items { get; set; } = new List<Items>();
         public DateTime OrderDate { get; set; }
         public double TotalPrice { get; set; }
     }

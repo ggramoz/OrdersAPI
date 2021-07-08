@@ -59,7 +59,9 @@ namespace OrdersAPI
             services.AddTransient<IOrdersService, OrdersService>(); 
             services.AddTransient<IProductsService, ProductsService>();
 
-            services.AddDbContext<EFContext>(options => options.UseSqlite(Configuration.GetConnectionString("OrdersAPIConnectionString")));
+            services.AddDbContext<EFContext>(options => options.UseSqlite(Configuration.GetConnectionString("OrdersAPIConnectionString")).UseLazyLoadingProxies());
+
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

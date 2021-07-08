@@ -9,7 +9,7 @@ namespace OrdersAPI.Domain.Models
 {
     public class Items : BaseEntity<int>
     {
-        public Products Product { get; set; }
+        public virtual Products Product { get; set; }
         public int Quantity { get; set; }
     }
 }

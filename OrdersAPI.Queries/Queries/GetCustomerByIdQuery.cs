@@ -12,9 +12,9 @@ namespace OrdersAPI.Queries.Queries
     {
         public int Id { get; set; }
 
-        public GetCustomerByIdQuery(int Id)
+        public GetCustomerByIdQuery(int _Id)
         {
-            Id = Id;
+            Id = _Id;
         }
     }
 }

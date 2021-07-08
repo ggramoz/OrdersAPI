@@ -14,6 +14,6 @@ namespace OrdersAPI.Infrastructure
     {
         public OrdersRepository(EFContext dbContext) : base(dbContext)
         {
-        }
+        } 
     }
 }

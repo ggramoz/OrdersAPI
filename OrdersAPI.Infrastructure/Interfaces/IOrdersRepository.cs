@@ -9,6 +9,6 @@ using OrdersAPI.Domain.Models;
 namespace OrdersAPI.Infrastructure
 {
     public interface IOrdersRepository : IAsyncRepository<Order>
-    {
+    { 
     }
 }

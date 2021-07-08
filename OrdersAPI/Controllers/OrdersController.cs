@@ -34,7 +34,7 @@ namespace OrdersAPI.Controllers
         }
 
         [HttpPost("AddOrder")]
-        public async Task<IActionResult> AddOrder(OrderVM o)
+        public async Task<IActionResult> AddOrder(int id,OrderVM o)
         {
             var query = new AddOrderCommand(o);
 
